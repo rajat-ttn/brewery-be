@@ -1,0 +1,52 @@
+{
+  "beers": [
+    {
+      "id": 1,
+      "beerType": "Aler Beer",
+      "tempRange": [
+        3,
+        5
+      ]
+    },
+    {
+      "id": 2,
+      "beerType": "Draught Beer",
+      "tempRange": [
+        3,
+        5
+      ]
+    },
+    {
+      "id": 3,
+      "beerType": "Lager Beer",
+      "tempRange": [
+        3,
+        5
+      ]
+    },
+    {
+      "id": 4,
+      "beerType": "Stout Beer",
+      "tempRange": [
+        3,
+        5
+      ]
+    },
+    {
+      "id": 5,
+      "beerType": "Wheat Beer",
+      "tempRange": [
+        3,
+        5
+      ]
+    },
+    {
+      "id": 6,
+      "beerType": "Porter Beer",
+      "tempRange": [
+        3,
+        5
+      ]
+    }
+  ]
+}
