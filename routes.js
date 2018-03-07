@@ -9,8 +9,10 @@ const router = express.Router();
 
 const beerAPI = require('./api/beer');
 
-// Insert routes below
+module.exports = function(io){
 
-router.use('/api/beers', beerAPI);
+    // Insert routes below
+    router.use('/api/beers', beerAPI(io));
 
-module.exports = router;
+    return router;
+};

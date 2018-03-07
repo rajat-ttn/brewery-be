@@ -7,10 +7,14 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const exphbs  = require('express-handlebars');
-const routes =  require('./routes.js');
 const cors = require('cors');
 
 const app = express();
+const server = require('http').Server(app);
+const socketIO = require('socket.io');
+const io = socketIO(server);
+
+const routes =  require('./routes.js')(io);
 
 const env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
@@ -25,7 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'assets')));
 
 //allow cors
-app.use(cors())
+app.use(cors());
 
 // bind main router here.
 app.use('/', routes);
@@ -64,4 +68,10 @@ app.use((err, req, res, next) => {
     });
 });
 
-module.exports = app;
+
+io.on('connection', function(socket){
+    console.log('a user connected');
+});
+
+
+module.exports = server;
