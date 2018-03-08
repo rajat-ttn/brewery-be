@@ -2,14 +2,14 @@ const request = require('supertest');
 const { app } = require('../app');
 const { expect } = require('chai');
 
-describe('testing :: /api/beers', function() {
+describe('testing :: /api/beers', () => {
 
-    it('fetching all beers should work', function(done) {
+    it('fetching all beers should work', done => {
         request(app)
             .get('/api/beers')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
-            .expect(200, function(err, res) {
+            .expect(200, (err, res) => {
                 if (err) {
                     return done(err);
                 }
