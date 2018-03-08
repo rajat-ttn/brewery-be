@@ -10,7 +10,7 @@ module.exports = function(config){
 
         io.emit('CONTAINER_TEMPERATURE_CHANGE', {
             containerId: containerId,
-            updatedTemperature:updatedTemperature
+            currentTemperature:updatedTemperature
         });
 
         res.send({success:true});
