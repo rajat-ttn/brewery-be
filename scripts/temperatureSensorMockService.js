@@ -2,7 +2,7 @@ const rp = require('request-promise');
 const cron = require('node-cron');
 const _ = require('lodash');
 
-const API_URL = 'http://localhost:3001/api/beers/1/updateTemperature';
+const API_URL = 'http://localhost:3001/api/containers/1/updateTemperature';
 
 const postOptions = {
     method: 'POST',
