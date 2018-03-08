@@ -6,14 +6,15 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const exphbs  = require('express-handlebars');
 const cors = require('cors');
+const amqp = require('amqplib/callback_api');
 
 const app = express();
 const server = require('http').Server(app);
 const socketIO = require('socket.io');
 const io = socketIO(server);
 
+const { RABBITMQ_CONF } = require("../constant");
 const routes =  require('./routes.js')({io:io});
 
 const env = process.env.NODE_ENV || 'development';
@@ -45,8 +46,7 @@ app.use((req, res, next) => {
 
 /// error handlers
 
-// development error handler
-// will print stacktrace
+// development error handler - will print stacktrace
 if (app.get('env') === 'development') {
     app.use((err, req, res, next) => {
         res.status(err.status || 500);
@@ -58,8 +58,7 @@ if (app.get('env') === 'development') {
     });
 }
 
-// production error handler
-// no stacktraces leaked to user
+// production error handler - no stacktraces leaked to user
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
     console.log('error is '+ err);
@@ -69,8 +68,20 @@ app.use((err, req, res, next) => {
 });
 
 
-io.on('connection', function(socket){
+io.on('connection', socket => {
     console.log('a user connected');
+});
+
+amqp.connect('amqp://localhost', (err, conn) => {
+    conn.createChannel((err, ch) => {
+        const QUEUE_CONF = RABBITMQ_CONF.queue;
+        ch.assertQueue(QUEUE_CONF.name, { durable: QUEUE_CONF.durable, messageTtl: QUEUE_CONF.messageTtl });
+        ch.consume(QUEUE_CONF.name, data => {
+            const container_temperature = data.content.toString();
+            console.log(" [x] Received %s", data.content.toString());
+            io.emit('CONTAINER_TEMPERATURE_CHANGE', container_temperature);
+        }, {noAck: true});
+    });
 });
 
 
