@@ -2,11 +2,8 @@ const rp = require('request-promise');
 const cron = require('node-cron');
 const _ = require('lodash');
 
-const API_URL = 'http://localhost:3001/api/containers/1/updateTemperature';
-
 const postOptions = {
     method: 'POST',
-    uri: API_URL,
     body: {
         updatedTemperature:null
     },
@@ -26,6 +23,7 @@ cron.schedule('*/10 * * * * *', function(){
 
 function notifyContainerTemperature(id){
     const randomTemp = getRandomArbitrary(3,7);
+    postOptions.uri =`http://localhost:3001/api/containers/${id}/updateTemperature`;
     postOptions.body.updatedTemperature = randomTemp;
     rp(postOptions);
 }
