@@ -3,17 +3,43 @@ const cron = require('node-cron');
 const _ = require('lodash');
 const amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://localhost', (err, conn) => {
-    console.log(err, conn, 'testing step1');
+const { RABBITMQ_CONF } = require("../constant");
+const beers = require('../mockData/beers/beers.json').beers;
+const containers = _.chain(beers).map('containerId').value();
+
+/**
+ * Returns a random number between min (inclusive) and max (exclusive)
+ */
+getRandomArbitrary = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+ 
+/**
+ * Sends the containers temperature every 10 seconds
+ */
+scheduler = (ch, QUEUE_CONF) => {
+    cron.schedule('*/10 * * * * *', () => {
+        containers.forEach((containerId) => {
+            const randomTemp = getRandomArbitrary(3,7);
+            ch.sendToQueue(QUEUE_CONF.name, new Buffer(JSON.stringify({
+                containerId: containerId,
+                updatedTemperature: randomTemp,
+            })));
+        });
+        console.log('cron task just got executed!');
+    });
+}
+
+/**
+ * Creates a rabbit mq connection
+ */
+amqp.connect(RABBITMQ_CONF.host, (err, conn) => {
     conn.createChannel((err, ch) => {
-        console.log(err, ch, 'testing step2');
-        const queueName = 'TEMPERATURE_QUEUE';
-        ch.assertQueue(queueName, {durable: false});
-        ch.sendToQueue(queueName, new Buffer('Testing sending message!'));
-        console.log("testing step3")
+        const QUEUE_CONF = RABBITMQ_CONF.queue;
+        ch.assertQueue(QUEUE_CONF.name, { durable: QUEUE_CONF.durable, messageTtl: QUEUE_CONF.messageTtl });
+        scheduler(ch, QUEUE_CONF);
     });
 });
-
 
 // const postOptions = {
 //     method: 'POST',
@@ -22,10 +48,6 @@ amqp.connect('amqp://localhost', (err, conn) => {
 //     },
 //     json: true // Automatically stringifies the body to JSON
 // };
-//
-// const beers = require('../mockData/beers/beers.json').beers;
-//
-// const containers = _.chain(beers).map('containerId').value();
 
 // cron.schedule('*/10 * * * * *', function(){
 //     containers.forEach((containerId) => {
@@ -33,17 +55,10 @@ amqp.connect('amqp://localhost', (err, conn) => {
 //     });
 //     console.log('cron task just got executed!');
 // });
-//
+
 // function notifyContainerTemperature(id){
 //     const randomTemp = getRandomArbitrary(3,7);
 //     postOptions.uri =`http://localhost:3001/api/containers/${id}/updateTemperature`;
 //     postOptions.body.updatedTemperature = randomTemp;
 //     rp(postOptions);
-// }
-//
-// /**
-//  * Returns a random number between min (inclusive) and max (exclusive)
-//  */
-// function getRandomArbitrary(min, max) {
-//     return Math.floor(Math.random() * (max - min + 1)) + min;
 // }
