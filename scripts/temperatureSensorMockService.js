@@ -21,9 +21,9 @@ scheduler = (ch, QUEUE_CONF) => {
     cron.schedule('*/10 * * * * *', () => {
         containers.forEach((containerId) => {
             const randomTemp = getRandomArbitrary(3,7);
-            ch.sendToQueue(QUEUE_CONF.name, new Buffer(JSON.stringify({
+            ch.sendToQueue(QUEUE_CONF.name, Buffer.from(JSON.stringify({
                 containerId: containerId,
-                updatedTemperature: randomTemp,
+                currentTemperature: randomTemp,
             })));
         });
         console.log('cron task just got executed!');

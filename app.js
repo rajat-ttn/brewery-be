@@ -77,9 +77,7 @@ amqp.connect('amqp://localhost', (err, conn) => {
         const QUEUE_CONF = RABBITMQ_CONF.queue;
         ch.assertQueue(QUEUE_CONF.name, { durable: QUEUE_CONF.durable, messageTtl: QUEUE_CONF.messageTtl });
         ch.consume(QUEUE_CONF.name, data => {
-            const container_temperature = data.content.toString();
-            console.log(" [x] Received %s", data.content.toString());
-            io.emit('CONTAINER_TEMPERATURE_CHANGE', container_temperature);
+            io.emit('CONTAINER_TEMPERATURE_CHANGE', JSON.parse(data.content.toString()));
         }, {noAck: true});
     });
 });
