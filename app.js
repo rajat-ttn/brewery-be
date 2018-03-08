@@ -14,7 +14,7 @@ const server = require('http').Server(app);
 const socketIO = require('socket.io');
 const io = socketIO(server);
 
-const { RABBITMQ_CONF } = require("../constant");
+const { RABBITMQ_CONF } = require("./constant");
 const routes =  require('./routes.js')({io:io});
 
 const env = process.env.NODE_ENV || 'development';
