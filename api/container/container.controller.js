@@ -8,12 +8,13 @@ module.exports = function(config){
         const containerId = req.params.containerId;
         const updatedTemperature = req.body.updatedTemperature;
 
-        io.emit('CONTAINER_TEMPERATURE_CHANGE', {
-            containerId: containerId,
+        const emitData = {
+            containerId,
             currentTemperature:updatedTemperature
-        });
+        };
+        io.emit('CONTAINER_TEMPERATURE_CHANGE', emitData);
 
-        res.send({success:true});
+        res.send(emitData);
     };
 
     return containerController;

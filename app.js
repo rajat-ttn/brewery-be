@@ -73,5 +73,4 @@ io.on('connection', function(socket){
     console.log('a user connected');
 });
 
-
-module.exports = server;
+module.exports = { server, app, io } ;
