@@ -2,7 +2,7 @@
 
 const beerService = require('./beer.service');
 
-module.exports = function(io){
+module.exports = function(config){
 
     const beerController = {};
 
@@ -11,18 +11,6 @@ module.exports = function(io){
             if (err) { return res.json(err); }
             return res.send(beers);
         });
-    };
-
-    beerController.notifyUpdatedTemperature = function (req, res){
-        const containerId = req.params.containerId;
-        const updatedTemperature = req.body.updatedTemperature;
-
-        io.emit('BEER_TEMPERATURE_CHANGE', {
-            containerId: containerId,
-            updatedTemperature:updatedTemperature
-        });
-
-        res.send({success:true});
     };
 
     return beerController;

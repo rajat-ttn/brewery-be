@@ -4,12 +4,11 @@ const express = require('express');
 const router = express.Router();
 
 
-module.exports = function(io){
+module.exports = function(config){
 
-    const controller = require('./beer.controller.js')(io);
+    const controller = require('./beer.controller.js')(config);
 
     router.get('/', controller.get);
-    router.post('/:containerId/updateTemperature', controller.notifyUpdatedTemperature);
 
     return router;
 };
