@@ -9,7 +9,7 @@ To begin with you need to have the following depedencies installed
 
 ## Installation
 
-*Clone this repo: `git clone `
+* Clone this repo: `git clone `
 * Change to the project directory `cd brewery-be`
 * Install all the dependencies by doing `npm install`
 * Run by using `npm start` 
