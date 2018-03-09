@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { server, app, io } = require('../app');
-const queue_consumer_init = require('./services/queue.consumer');
+const queue_consumer_init = require('../services/queue.consumer');
 
 queue_consumer_init(io);
 
