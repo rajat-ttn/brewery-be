@@ -5,8 +5,13 @@ const RABBITMQ_CONF = {
         durable: true,
         messageTtl: 1000,
     },
-}
+};
+const SENSOR_CONF = {
+  timer: 10,
+  event: 'CONTAINER_TEMPERATURE_CHANGE',
+};
 
 module.exports = {
-    RABBITMQ_CONF
+    RABBITMQ_CONF,
+    SENSOR_CONF
 };

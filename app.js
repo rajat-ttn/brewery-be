@@ -14,7 +14,7 @@ const server = require('http').Server(app);
 const socketIO = require('socket.io');
 const io = socketIO(server);
 
-const { RABBITMQ_CONF } = require("./constant");
+require('./services/queue.consumer')(io);
 const routes =  require('./routes.js')({io:io});
 
 const env = process.env.NODE_ENV || 'development';
@@ -70,16 +70,6 @@ app.use((err, req, res, next) => {
 
 io.on('connection', socket => {
     console.log('a user connected');
-});
-
-amqp.connect('amqp://localhost', (err, conn) => {
-    conn.createChannel((err, ch) => {
-        const QUEUE_CONF = RABBITMQ_CONF.queue;
-        ch.assertQueue(QUEUE_CONF.name, { durable: QUEUE_CONF.durable, messageTtl: QUEUE_CONF.messageTtl });
-        ch.consume(QUEUE_CONF.name, data => {
-            io.emit('CONTAINER_TEMPERATURE_CHANGE', JSON.parse(data.content.toString()));
-        }, {noAck: true});
-    });
 });
 
 

@@ -3,32 +3,31 @@ const cron = require('node-cron');
 const _ = require('lodash');
 const amqp = require('amqplib/callback_api');
 
-const { RABBITMQ_CONF } = require("../constant");
+const { RABBITMQ_CONF, SENSOR_CONF } = require("../constant");
 const beers = require('../mockData/beers/beers.json').beers;
 const containers = _.chain(beers).map('containerId').value();
 
 /**
  * Returns a random number between min (inclusive) and max (exclusive)
  */
-getRandomArbitrary = (min, max) => {
+const getRandomArbitrary = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
  
 /**
  * Sends the containers temperature every 10 seconds
  */
-scheduler = (ch, QUEUE_CONF) => {
-    cron.schedule('*/10 * * * * *', () => {
-        containers.forEach((containerId) => {
+const scheduler = (ch, QUEUE_CONF) => {
+    cron.schedule(`*/${SENSOR_CONF.timer} * * * * *`, () => {
+        containers.forEach(containerId => {
             const randomTemp = getRandomArbitrary(3,7);
             ch.sendToQueue(QUEUE_CONF.name, Buffer.from(JSON.stringify({
                 containerId: containerId,
                 currentTemperature: randomTemp,
             })));
         });
-        console.log('cron task just got executed!');
     });
-}
+};
 
 /**
  * Creates a rabbit mq connection
