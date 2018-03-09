@@ -69,8 +69,12 @@ app.use((err, req, res, next) => {
 });
 
 /* istanbul ignore next */
-io.on('connection', socket => {
+io.on('connection', () => {
     console.log('a user connected');
+});
+
+process.on('uncaughtException', () => {
+    process.exit(1);
 });
 
 module.exports = { server, app, io } ;
