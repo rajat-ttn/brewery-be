@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
+const { server, app, io } = require('../app');
+const queue_consumer_init = require('./services/queue.consumer');
 
-const server = require('../app');
+queue_consumer_init(io);
 
-
-server.listen(process.env.PORT || 3001, function() {
+server.listen(process.env.PORT || 3001, () => {
     console.log('Express server listening on port ' + server.address().port);
 });
 
+module.exports = { server, app, io };
 // const io = require('socket.io')(server);
 // io.on('connection', function(socket){
 //     console.log('a user connected');

@@ -14,7 +14,6 @@ const server = require('http').Server(app);
 const socketIO = require('socket.io');
 const io = socketIO(server);
 
-require('./services/queue.consumer')(io);
 const routes =  require('./routes.js')({io:io});
 
 const env = process.env.NODE_ENV || 'development';
@@ -49,8 +48,9 @@ app.use((req, res, next) => {
 // development error handler - will print stacktrace
 if (app.get('env') === 'development') {
     app.use((err, req, res, next) => {
+
+        /* istanbul ignore next */
         res.status(err.status || 500);
-        console.log('error is '+ err);
         res.send({
             error: err,
             errorMsg:err.message
@@ -60,17 +60,17 @@ if (app.get('env') === 'development') {
 
 // production error handler - no stacktraces leaked to user
 app.use((err, req, res, next) => {
+
+    /* istanbul ignore next */
     res.status(err.status || 500);
-    console.log('error is '+ err);
     res.send({
         errorMsg:err.message
     });
 });
 
-
+/* istanbul ignore next */
 io.on('connection', socket => {
     console.log('a user connected');
 });
 
-
-module.exports = server;
+module.exports = { server, app, io } ;
