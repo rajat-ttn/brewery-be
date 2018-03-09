@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = function(config){
+module.exports = config => {
     const io = config.io;
     const containerController = {};
 
-    containerController.notifyUpdatedTemperature = function (req, res){
+    containerController.notifyUpdatedTemperature = (req, res) => {
         const containerId = req.params.containerId;
         const updatedTemperature = req.body.updatedTemperature;
         if(!Number.isFinite(updatedTemperature)){

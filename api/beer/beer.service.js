@@ -2,7 +2,7 @@
 
 const beerService = {};
 
-beerService.getAllBeers = function(payload, callback){
+beerService.getAllBeers = (payload, callback) => {
     const allBeers = require('../../mockData/beers/beers.json');
     callback(null, allBeers);
 };

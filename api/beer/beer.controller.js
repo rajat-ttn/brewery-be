@@ -2,12 +2,12 @@
 
 const beerService = require('./beer.service');
 
-module.exports = function(config){
+module.exports = config => {
 
     const beerController = {};
-    
-    beerController.get = function (req, res){
-        beerService.getAllBeers(null, function (err, beers) {
+
+    beerController.get = (req, res) => {
+        beerService.getAllBeers(null, (err, beers) => {
             if (err) { return res.json(err); }
             return res.send(beers);
         });

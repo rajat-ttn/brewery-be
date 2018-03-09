@@ -71,7 +71,7 @@ app.use((err, req, res, next) => {
 });
 
 /* istanbul ignore next */
-io.on('connection', function(socket){
+io.on('connection', socket => {
     console.log('a user connected');
 });
 
