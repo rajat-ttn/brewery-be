@@ -49,8 +49,9 @@ app.use((req, res, next) => {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use((err, req, res, next) => {
+
+        /* istanbul ignore next */
         res.status(err.status || 500);
-        console.log('error is '+ err);
         res.send({
             error: err,
             errorMsg:err.message
@@ -61,14 +62,15 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use((err, req, res, next) => {
+
+    /* istanbul ignore next */
     res.status(err.status || 500);
-    console.log('error is '+ err);
     res.send({
         errorMsg:err.message
     });
 });
 
-
+/* istanbul ignore next */
 io.on('connection', socket => {
     console.log('a user connected');
 });
