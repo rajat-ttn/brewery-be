@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 var assert = require('assert');
 
-describe('unit testing beer.service.js', function() {
+describe('unit testing beer.service', function() {
 
     let beerService;
     let beerData;

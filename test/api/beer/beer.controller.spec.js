@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 var assert = require('assert');
 
-describe('unit testing beer.controller.js', function() {
+describe('unit testing beer.controller', function() {
 
     let beerController;
     let err = null;
@@ -25,7 +25,7 @@ describe('unit testing beer.controller.js', function() {
         assert(res.send.calledWith(['beer1', 'beer2']));
     });
 
-    it('get beerList should return a valid response', function() {
+    it('get beerList should return error, if there is an error', function() {
         err = 'some_error';
         const res = {send: sinon.spy(), json: sinon.spy()};
         const req = {};

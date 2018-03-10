@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 const assert = require('assert');
 
-describe('unit testing container router', function() {
+describe('unit testing container.router (container-->index.js)', function() {
 
     let beerData;
     let containerController = {notifyUpdatedTemperature:function(){}};
@@ -32,7 +32,7 @@ describe('unit testing container router', function() {
         assert(containerControllerInit.calledWith({a:1}));
     });
 
-    it('container router should get configured properly', function() {
+    it('container router should configure route to notifyUpdatedTemperature', function() {
         assert(routerPost.calledWith('/:containerId/updateTemperature',containerController.notifyUpdatedTemperature ));
     });
 

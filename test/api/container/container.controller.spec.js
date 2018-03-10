@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 var assert = require('assert');
 
-describe('unit testing container.controller.js', function() {
+describe('unit testing container.controller', function() {
 
     let containerController;
     let config ={
