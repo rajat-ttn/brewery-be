@@ -1,3 +1,5 @@
+'use strict';
+
 const rp = require('request-promise');
 const cron = require('node-cron');
 const _ = require('lodash');

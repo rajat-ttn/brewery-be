@@ -4,9 +4,9 @@ const express = require('express');
 const router = express.Router();
 
 
-module.exports = config => {
+module.exports = () => {
 
-    const controller = require('./beer.controller.js')(config);
+    const controller = require('./beer.controller.js')();
 
     router.get('/', controller.get);
 

@@ -1,5 +1,7 @@
 'use strict';
 
+const { ERROR_CONF, SENSOR_CONF } = require('../../constant');
+
 module.exports = config => {
     const io = config.io;
     const containerController = {};
@@ -8,7 +10,7 @@ module.exports = config => {
         const containerId = req.params.containerId;
         const updatedTemperature = req.body.updatedTemperature;
         if(!Number.isFinite(updatedTemperature)){
-            const error =  new Error('INVALID_TEMPERATURE');
+            const error =  new Error(ERROR_CONF.message);
             error.status = 400;
             throw error;
         }
@@ -16,7 +18,7 @@ module.exports = config => {
             containerId,
             currentTemperature:updatedTemperature
         };
-        io.emit('CONTAINER_TEMPERATURE_CHANGE', emitData);
+        io.emit(SENSOR_CONF.event, emitData);
 
         res.send(emitData);
     };

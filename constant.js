@@ -10,8 +10,12 @@ const SENSOR_CONF = {
   timer: 10,
   event: 'CONTAINER_TEMPERATURE_CHANGE',
 };
+const ERROR_CONF = {
+    message: 'INVALID_TEMPERATURE',
+};
 
 module.exports = {
     RABBITMQ_CONF,
-    SENSOR_CONF
+    SENSOR_CONF,
+    ERROR_CONF,
 };

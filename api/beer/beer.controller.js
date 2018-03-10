@@ -2,7 +2,7 @@
 
 const beerService = require('./beer.service');
 
-module.exports = config => {
+module.exports = () => {
 
     const beerController = {};
 
