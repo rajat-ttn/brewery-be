@@ -16,3 +16,7 @@ You can clone repository [Brewery-be](https://github.com/rajat-ttn/brewery-be.gi
 * Install all the dependencies by using `npm install`
 * Start server using `npm start`
 * Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
+
+## Run test cases
+
+* Run `npm test:coverage`
