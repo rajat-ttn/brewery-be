@@ -36,9 +36,11 @@ describe('unit testing main routes', function() {
         assert(containerRouterInit.calledWith({a:1}));
     });
 
-    it('main router should get configured properly', function() {
-
+    it('main router should configure /api/beers route', function() {
         assert(routerUse.getCall(0).calledWith('/api/beers', beerRouter ));
+    });
+
+    it('main router should configure /api/containers route', function() {
         assert(routerUse.getCall(1).calledWith('/api/containers', containerRouter ));
     });
 

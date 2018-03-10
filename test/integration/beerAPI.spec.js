@@ -2,7 +2,7 @@ const request = require('supertest');
 const { app } = require('../../app');
 const { expect } = require('chai');
 
-describe('testing :: /api/beers', () => {
+describe('integration testing  :: route --> /api/beers', () => {
 
     it('fetching all beers should work', done => {
         request(app)

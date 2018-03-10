@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 const assert = require('assert');
 
-describe('unit testing beer router', function() {
+describe('unit testing beer.router (beer-->index.js)', function() {
 
     let beerService;
     let beerData;
@@ -33,7 +33,7 @@ describe('unit testing beer router', function() {
         assert(beerControllerInit.calledWith({a:1}));
     });
 
-    it('beer router should get configured properly', function() {
+    it('beer router should configure getAllBeers route', function() {
         assert(routerGet.calledWith('/',beerController.get ));
     });
 

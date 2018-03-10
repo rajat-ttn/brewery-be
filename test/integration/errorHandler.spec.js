@@ -4,7 +4,7 @@ const request = require('supertest');
 let { app } = require('../../app');
 const { expect } = require('chai');
 
-describe('testing error handlers', function() {
+describe('integration testing :: error handling', function() {
 
     it('should have error field in response for dev environment', function(done) {
         request(app)
