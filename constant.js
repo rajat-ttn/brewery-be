@@ -1,5 +1,5 @@
 const RABBITMQ_CONF = {
-    host: "amqp://localhost",
+    host: process.env.RABBITMQ_URL || "amqp://localhost",
     queue: {
         name: 'GET_TEMPERATURE',
         durable: true,
