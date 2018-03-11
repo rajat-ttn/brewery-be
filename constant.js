@@ -3,7 +3,7 @@ const RABBITMQ_CONF = {
     queue: {
         name: 'GET_TEMPERATURE',
         durable: true,
-        messageTtl: 1000,
+        messageTtl: 10000,
     },
 };
 const SENSOR_CONF = {
