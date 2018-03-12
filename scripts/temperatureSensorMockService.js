@@ -1,6 +1,5 @@
 'use strict';
 
-const rp = require('request-promise');
 const cron = require('node-cron');
 const _ = require('lodash');
 const amqp = require('amqplib/callback_api');
@@ -41,25 +40,3 @@ amqp.connect(RABBITMQ_CONF.host, (err, conn) => {
         scheduler(ch, QUEUE_CONF);
     });
 });
-
-// const postOptions = {
-//     method: 'POST',
-//     body: {
-//         updatedTemperature:null
-//     },
-//     json: true // Automatically stringifies the body to JSON
-// };
-
-// cron.schedule('*/10 * * * * *', function(){
-//     containers.forEach((containerId) => {
-//         notifyContainerTemperature(containerId);
-//     });
-//     console.log('cron task just got executed!');
-// });
-
-// function notifyContainerTemperature(id){
-//     const randomTemp = getRandomArbitrary(3,7);
-//     postOptions.uri =`http://localhost:3001/api/containers/${id}/updateTemperature`;
-//     postOptions.body.updatedTemperature = randomTemp;
-//     rp(postOptions);
-// }
