@@ -73,6 +73,7 @@ io.on('connection', () => {
     console.log('a user connected');
 });
 
+/* istanbul ignore next */
 process.on('uncaughtException', () => {
     process.exit(1);
 });
