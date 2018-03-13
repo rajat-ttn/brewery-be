@@ -12,6 +12,7 @@ module.exports = config => {
      * @param res
      */
 
+    //This api was created to help in manual testing.
     containerController.notifyUpdatedTemperature = (req, res) => {
         const containerId = req.params.containerId;
         const updatedTemperature = req.body.updatedTemperature;
