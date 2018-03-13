@@ -7,7 +7,6 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const amqp = require('amqplib/callback_api');
 
 const app = express();
 const server = require('http').Server(app);
