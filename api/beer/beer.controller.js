@@ -2,9 +2,15 @@
 
 const beerService = require('./beer.service');
 
-module.exports = (config) => {
+module.exports = config => {
 
     const beerController = {};
+
+    /**
+     * Fetch list of the beers
+     * @param req
+     * @param res
+     */
 
     beerController.get = (req, res) => {
         beerService.getAllBeers(null, (err, beers) => {

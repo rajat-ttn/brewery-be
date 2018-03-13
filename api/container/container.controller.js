@@ -6,6 +6,12 @@ module.exports = config => {
     const io = config.io;
     const containerController = {};
 
+    /**
+     * Emit socket event for updated temperature
+     * @param req
+     * @param res
+     */
+
     containerController.notifyUpdatedTemperature = (req, res) => {
         const containerId = req.params.containerId;
         const updatedTemperature = req.body.updatedTemperature;

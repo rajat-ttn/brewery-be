@@ -4,6 +4,11 @@ const amqp = require('amqplib/callback_api');
 
 const { RABBITMQ_CONF, SENSOR_CONF } = require("../constant");
 
+/**
+ * Messaging queue consuming data
+ * @param io
+ */
+
 module.exports = io => {
     amqp.connect(RABBITMQ_CONF.host, (err, conn) => {
         conn.createChannel((err, ch) => {

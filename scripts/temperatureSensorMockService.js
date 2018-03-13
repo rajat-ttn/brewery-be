@@ -10,14 +10,21 @@ const containers = _.chain(beers).map('containerId').value();
 
 /**
  * Returns a random number between min (inclusive) and max (exclusive)
+ * @param min
+ * @param max
+ * @returns {*}
  */
+
 const getRandomArbitrary = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
- 
+
 /**
  * Sends the containers temperature every 10 seconds
+ * @param ch
+ * @param QUEUE_CONF
  */
+
 const scheduler = (ch, QUEUE_CONF) => {
     cron.schedule(`*/${SENSOR_CONF.timer} * * * * *`, () => {
         containers.forEach(containerId => {
@@ -33,6 +40,7 @@ const scheduler = (ch, QUEUE_CONF) => {
 /**
  * Creates a rabbit mq connection
  */
+
 amqp.connect(RABBITMQ_CONF.host, (err, conn) => {
     conn.createChannel((err, ch) => {
         const QUEUE_CONF = RABBITMQ_CONF.queue;
