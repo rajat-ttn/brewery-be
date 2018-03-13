@@ -1,32 +1,29 @@
 const request = require('supertest');
-const { app } = require('../../../app');
 const { expect } = require('chai');
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 var assert = require('assert');
 
-describe('unit testing container.controller', function() {
+const { app } = require('../../../app');
+
+describe('unit testing container.controller', () => {
 
     let containerController;
-    let config ={
-        io:{
-            emit:sinon.spy()
-        }
-    };
+    let config = { io: { emit:sinon.spy() } };
 
-    before(()=>{
+    before(() => {
         containerController = require('../../../api/container/container.controller')(config);
     });
 
-    it('notifyUpdatedTemperature should brodcast to io', function() {
+    it('notifyUpdatedTemperature should brodcast to io', () => {
 
-        const res = {send: sinon.spy()};
+        const res = { send: sinon.spy() };
         const req = {
-            params:{
-                containerId:1
+            params: {
+                containerId: 1
             },
-            body:{
-                updatedTemperature:3
+            body: {
+                updatedTemperature: 3
             }
         };
 
@@ -42,4 +39,5 @@ describe('unit testing container.controller', function() {
             currentTemperature: 3
         }));
     });
+    
 });

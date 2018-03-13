@@ -1,6 +1,7 @@
 const request = require('supertest');
-const { app } = require('../app');
 const { expect } = require('chai');
+
+const { app } = require('../app');
 
 describe('testing :: /api/containers', () => {
 

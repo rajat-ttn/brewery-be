@@ -1,39 +1,40 @@
 const request = require('supertest');
-const { app } = require('../../../app');
 const { expect } = require('chai');
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 const assert = require('assert');
 
-describe('unit testing container.router (container-->index.js)', function() {
+const { app } = require('../../../app');
+
+describe('unit testing container.router (container-->index.js)', () => {
 
     let beerData;
-    let containerController = {notifyUpdatedTemperature:function(){}};
+    let containerController = { notifyUpdatedTemperature: () => {} };
     let containerControllerInit = sinon.stub().returns(containerController);
-    let config = {a:1};
+    let config = { a:1 };
 
     let routerPost = sinon.spy();
     let expressStub = {
-        Router: function(){
+        Router: () => {
             return {
                 post:routerPost
             }
         }
     };
 
-    before(()=>{
+    before(() => {
         proxyquire('../../../api/container/index', {
             './container.controller.js': containerControllerInit,
             'express':expressStub
         })(config);
     });
 
-    it('containerController should get initialized correctly', function() {
-        assert(containerControllerInit.calledWith({a:1}));
+    it('containerController should get initialized correctly', () => {
+        assert(containerControllerInit.calledWith(config));
     });
 
-    it('container router should configure route to notifyUpdatedTemperature', function() {
-        assert(routerPost.calledWith('/:containerId/updateTemperature',containerController.notifyUpdatedTemperature ));
+    it('container router should configure route to notifyUpdatedTemperature', () => {
+        assert(routerPost.calledWith('/:containerId/updateTemperature', containerController.notifyUpdatedTemperature));
     });
 
 });
